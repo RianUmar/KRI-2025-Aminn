@@ -26,6 +26,9 @@ Press Ctrl+C to exit.
 tof = VL53L1X.VL53L1X(i2c_bus=1, i2c_address=0x29)
 tof.open()
 
+tof2 = VL53L1X.VL53L1X(i2c_bus=1, i2c_address=0x29)
+tof2.open()
+
 # Optionally set an explicit timing budget
 # These values are measurement time in microseconds,
 # and inter-measurement time in milliseconds.
@@ -38,6 +41,11 @@ tof.start_ranging(1)  # Start ranging
                       # 1 = Short Range
                       # 2 = Medium Range
                       # 3 = Long Range
+tof2.start_ranging(1)  # Start ranging
+                      # 0 = Unchanged
+                      # 1 = Short Range
+                      # 2 = Medium Range
+                      # 3 = Long Range
 
 running = True
 
@@ -46,6 +54,7 @@ def exit_handler(signal, frame):
     global running
     running = False
     tof.stop_ranging()
+    tof2.stop_ranging()
     print()
     sys.exit(0)
 
@@ -57,3 +66,7 @@ while running:
     distance_in_mm = tof.get_distance()
     print("Distance: {}mm".format(distance_in_mm))
     time.sleep(0.1)
+    distance_in_mm = tof2.get_distance()
+    print("Distance: {}mm".format(distance_in_mm))
+    time.sleep(0.1)
+    
