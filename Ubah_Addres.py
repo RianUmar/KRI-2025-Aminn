@@ -5,8 +5,8 @@ import argparse
 import VL53L1X
 
 
-addr_current = 0x29
-addr_desired = 0x33
+addr_current = 0x address sebelum diubah
+addr_desired = 0x address sesudah diubah
 
 
 def auto_int(x):
